@@ -25,7 +25,7 @@ export const DEMO_USERS: DemoUser[] = [
       email: 'admin@somitee.dev',
       role: 'main_user',
       somiteeId: 's1',
-      somiteeName: 'মুরাদপুর ব্যবসায়ী সমবায় সমিতি লিমিটেড',
+      somiteeName: 'মুরাদপুর ব্যবসায়ী সমবায় সমিতি লিঃ',
       phone: '01711111111',
       profilePhoto: null,
     },

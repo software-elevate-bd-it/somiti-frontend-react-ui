@@ -19,7 +19,7 @@ interface CompanyState {
 
 export const useCompanyStore = create<CompanyState>((set, get) => ({
   company: {
-    name: 'মুরাদপুর ব্যবসায়ী সমবায় সমিতি লিমিটেড',
+    name: 'মুরাদপুর ব্যবসায়ী সমবায় সমিতি লিঃ',
     logo: '',
     address: 'মুরাদপুর, চট্টগ্রাম',
     phone: '01711111111',
