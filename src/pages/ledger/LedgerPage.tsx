@@ -8,7 +8,9 @@ import { useLedgerStore, type Transaction } from '@/stores/ledgerStore';
 import { useMembersStore } from '@/stores/membersStore';
 
 const allColumns: Column<Transaction>[] = [
-  { key: 'date', label: 'Date', sortable: true },
+  { key: 'date', label: 'Date', sortable: true, render: (row) =>
+    row.date ? new Date(row.date).toISOString().split('T')[0]:'Not Set'
+   },
   { key: 'memberName', label: 'Member' },
   { key: 'type', label: 'Type', render: (t) => <Badge variant={t.type === 'collection' ? 'default' : 'secondary'}>{t.type || 'N/A'}</Badge> },
   { key: 'category', label: 'Category', render: (t)=>`${t.referenceType}`},

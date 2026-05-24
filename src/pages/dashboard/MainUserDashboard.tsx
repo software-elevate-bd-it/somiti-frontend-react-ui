@@ -45,7 +45,8 @@ export default function MainUserDashboard() {
     { key: 'status', label: t('common.status'), render: (tx) => (
       <Badge variant={tx.status === 'approved' ? 'default' : tx.status === 'pending' ? 'secondary' : 'destructive'}>{tx.status}</Badge>
     )},
-    { key: 'date', label: t('common.date') },
+    { key: 'date', label: t('common.date'), render: (row) => 
+      row.date ? new Date(row.date).toISOString().split('T')[0]:'Not Set' },
   ];
 
   // Use real stats from API with fallbacks

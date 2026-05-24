@@ -72,7 +72,7 @@ const navItems: NavItem[] = [
   { labelKey: 'nav.settings', path: '/settings', icon: Settings, roles: ['main_user', 'member'] },
   { labelKey: 'nav.themeStudio', path: '/theme-studio', icon: Palette, roles: ['super_admin', 'main_user'] },
   // { labelKey: 'nav.faqHelp', path: '/faq', icon: HelpCircle, roles: ['super_admin', 'main_user', 'member'] },
-  { labelKey: 'nav.howToWork', path: '/help', icon: BookOpen, roles: ['super_admin', 'main_user', 'member'] },
+  // { labelKey: 'nav.howToWork', path: '/help', icon: BookOpen, roles: ['super_admin', 'main_user', 'member'] },
   // { labelKey: 'nav.userManual', path: '/user-manual', icon: BookOpen, roles: ['super_admin', 'main_user', 'member'] },
   // { labelKey: 'nav.apiDocs', path: '/api-docs', icon: FileText, roles: ['super_admin', 'main_user'] },
 ];

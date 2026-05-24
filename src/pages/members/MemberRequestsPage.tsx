@@ -209,7 +209,11 @@ export default function MemberRequestsPage() {
 
         <div>
           <span className="text-muted-foreground">Date of Birth: </span>
-          <strong>{selectedRequest.dob}</strong>
+          <strong>
+            {selectedRequest?.dob ?
+              new Date(selectedRequest.dob).toISOString().split('T')[0]:'N/A'
+            }
+            </strong>
         </div>
 
       </div>
@@ -297,7 +301,7 @@ export default function MemberRequestsPage() {
           <p className="mb-2 text-sm font-medium">NID Front</p>
 
           <img
-            src={`http://localhost:5000${selectedRequest.nidFrontUrl}`}
+            src={`https://somitiapi.mbssl.com/${selectedRequest.nidFrontUrl}`}
             alt="NID Front"
             className="rounded border"
           />
@@ -307,7 +311,7 @@ export default function MemberRequestsPage() {
           <p className="mb-2 text-sm font-medium">NID Back</p>
 
           <img
-            src={`http://localhost:5000${selectedRequest.nidBackUrl}`}
+            src={`https://somitiapi.mbssl.com/${selectedRequest.nidBackUrl}`}
             alt="NID Back"
             className="rounded border"
           />
