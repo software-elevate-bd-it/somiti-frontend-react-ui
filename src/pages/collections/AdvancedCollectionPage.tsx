@@ -174,7 +174,10 @@ useEffect(() =>{
     { key: 'status', label: t('common.status'), render: (p) => (
       <Badge variant={p.status === 'approved' ? 'default' : p.status === 'pending' ? 'secondary' : 'destructive'}>{t(`common.${p.status}`)}</Badge>
     )},
-    { key: 'date', label: t('common.date'), sortable: true },
+    { key: 'date', label: t('common.date'), sortable: true, 
+      render: (row) => 
+      row.date ? new Date(row.date).toISOString().split('T')[0]:'Not Set' 
+    },
   ];
 
   const totalCollected = payments.filter(p => 
@@ -426,7 +429,11 @@ console.log('payments', payments);
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-green-500/10 flex items-center justify-center"><DollarSign className="h-5 w-5 text-green-600" /></div>
-              <div><p className="text-xs text-muted-foreground">{t('advancedCollection.totalCollected')}</p><p className="text-xl font-bold">৳{totalCollected.toLocaleString()}</p></div>
+              <div>
+                <p className="text-xs text-muted-foreground">
+                  {t('advancedCollection.totalCollected')}
+                  </p>
+                  <p className="text-xl font-bold">৳{totalCollected.toLocaleString()}</p></div>
             </Card>
             <Card className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center"><CalendarDays className="h-5 w-5 text-blue-600" /></div>

@@ -25,8 +25,9 @@ const columns: Column<Expense>[] = [
   { key: 'amount', label: 'Amount', render: (t) => `৳${t.amount ? t.amount.toLocaleString() : '0'}`, sortable: true },
   { key: 'method', label: 'Method', render: (t) => <span className="capitalize">{t.method || 'N/A'}</span> },
   { key: 'note', label: 'Note' },
-  { key: 'date', label: 'Date', sortable: true },
-  { key: 'status', label: 'Status', render: (t) => <Badge variant={t.status === 'approved' ? 'default' : t.status === 'pending' ? 'secondary' : 'destructive'}>{t.status || 'pending'}</Badge> },
+  { key: 'date', label: 'Date', sortable: true,  render: (row) => 
+      row.date ? new Date(row.date).toISOString().split('T')[0]:'Not Set'},
+  // { key: 'status', label: 'Status', render: (t) => <Badge variant={t.status === 'approved' ? 'default' : t.status === 'pending' ? 'secondary' : 'destructive'}>{t.status || 'pending'}</Badge> },
 ];
 
 export default function ExpensesPage() {

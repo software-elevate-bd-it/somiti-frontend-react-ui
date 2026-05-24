@@ -378,20 +378,115 @@ class ApiClient {
     // console.log(`[API] ${options.method || 'GET'} ${url}`);
 
     const response = await fetch(url, {
-      ...options,
-      headers,
-    });
+  ...options,
+  headers,
+});
 
-    const data = await response.json();
+// =========================
+// AUTO REFRESH TOKEN
+// =========================
 
-    // console.log(`[API] Response status: ${response.status} for ${endpoint}`);
-    // console.log(`[API] Response data:`, data);
+if (
+  response.status === 401 &&
+  endpoint !== '/auth/refresh-token'
+) {
 
-    if (!response.ok) {
-      throw new ApiError(data.message || 'Request failed', data.errors || []);
+  try {
+
+    const {
+      useAuthStore
+    } = await import(
+      '@/stores/authStore'
+    );
+
+    const auth =
+      useAuthStore.getState();
+
+    if (
+      auth.refreshToken
+    ) {
+
+      console.log(
+        '[AUTH] Refreshing token...'
+      );
+
+      const refresh =
+        await this.refreshToken(
+          auth.refreshToken
+        );
+
+      const newToken =
+        refresh.data
+          ?.accessToken;
+
+      if (
+        !newToken
+      ) {
+
+        auth.logout();
+
+        throw new Error(
+          'Refresh failed'
+        );
+      }
+
+      auth.setToken(
+        newToken
+      );
+
+      headers.Authorization =
+        `Bearer ${newToken}`;
+
+      const retry =
+        await fetch(
+          url,
+          {
+            ...options,
+            headers,
+          }
+        );
+
+      const retryData =
+        await retry.json();
+
+      return retryData;
+
     }
 
-    return data;
+  } catch {
+
+    const {
+      useAuthStore
+    } =
+      await import(
+        '@/stores/authStore'
+      );
+
+    useAuthStore
+      .getState()
+      .logout();
+  }
+}
+
+const data =
+await response.json();
+
+if (
+  !response.ok
+) {
+
+  throw new ApiError(
+    data.message ||
+    'Request failed',
+
+    data.errors ||
+    []
+  );
+
+}
+
+return data;
+    
   }
 
   // Auth endpoints

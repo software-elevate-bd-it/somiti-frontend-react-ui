@@ -46,13 +46,23 @@ export default function CashBookPage() {
 
   return (
     <div className="space-y-6">
-      <div><h1 className="text-2xl font-heading font-bold">Cash Book</h1><p className="text-muted-foreground">Daily cash flow tracking</p></div>
+      <div>
+        <h1 className="text-2xl font-heading font-bold">Cash Book</h1>
+        <p className="text-muted-foreground">Daily cash flow tracking</p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatsCard title="Cash In" value={`৳${totalIn.toLocaleString()}`} icon={ArrowUpRight} changeType="positive" />
         <StatsCard title="Cash Out" value={`৳${totalOut.toLocaleString()}`} icon={ArrowDownRight} changeType="negative" />
         <StatsCard title="Balance" value={`৳${balance.toLocaleString()}`} icon={Wallet} />
       </div>
-      <Card><CardContent className="pt-6">{isLoading ? <p className="text-muted-foreground text-center py-8">Loading...</p> : <DataTable data={entries} columns={columns} searchKey="description" emptyMessage="No cash entries found" />}</CardContent></Card>
+      <Card>
+        <CardContent className="pt-6">
+          {isLoading ? 
+          <p className="text-muted-foreground text-center py-8">Loading...</p> 
+          : 
+          <DataTable data={entries} columns={columns} searchKey="description" emptyMessage="No cash entries found" />}
+          </CardContent>
+        </Card>
     </div>
   );
 }

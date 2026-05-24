@@ -83,6 +83,9 @@ export default function DashboardLayout() {
   const location = useLocation();
   const { t } = useTranslation();
   const { company } = useCompanyStore();
+
+  console.log('Current company', company);
+  
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [openMenus, setOpenMenus] = useState<string[]>(['/reports']);

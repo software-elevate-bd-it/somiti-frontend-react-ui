@@ -20,18 +20,34 @@ import { useIncomesStore } from '@/stores/incomeStore';
 import { useBankAccountsStore } from '@/stores/bankAccountsStore';
 
 
-const columns: Column<Income>[] = [
-  { key: 'title', label: 'Title' },
-  { key: 'type', label: 'Type', sortable: true },
-  { key: 'amount', label: 'Amount', render: (t) => `৳${t.amount ? t.amount.toLocaleString() : '0'}`, sortable: true },
-  { key: 'date', label: 'incomeDate', sortable: true },
-  { key: 'source', label: 'Source' },
-  { key: 'referenceNo', label: 'Reference No' },
-  { key: 'description', label: 'Description' },
-  { key: 'note', label: 'Note' },
-  { key: 'bankAccountId', label: 'Bank Account' },
-  { key: 'status', label: 'Status', render: (t) => <Badge variant={t.status === 'received' ? 'default' : t.status === 'pending' ? 'secondary' : 'destructive'}>{t.status || 'pending'}</Badge> },
-];
+// const columns: Column<Income>[] = [
+//   { key: 'title', label: 'Title' },
+//   { key: 'type', label: 'Type', sortable: true },
+//   { key: 'amount', label: 'Amount', render: (t) => `৳${t.amount ? t.amount.toLocaleString() : '0'}`, sortable: true },
+//   { key: 'date', label: 'incomeDate', sortable: true },
+//   { key: 'source', label: 'Source' },
+//   { key: 'referenceNo', label: 'Reference No' },
+//   { key: 'description', label: 'Description' },
+//   { key: 'note', label: 'Note' },
+//   { key: 'bankAccountId', 
+//     label: 'Bank Account',
+//    render: (row) => {
+
+//     const bank =
+//       bankAccounts.find(
+//         b =>
+//           String(b.id) ===
+//           String(row.bankAccountId)
+//       );
+
+//     return (
+//       bank?.bankName ||
+//       'Not Set'
+//     );
+
+//   } },
+//   { key: 'status', label: 'Status', render: (t) => <Badge variant={t.status === 'received' ? 'default' : t.status === 'pending' ? 'secondary' : 'destructive'}>{t.status || 'pending'}</Badge> },
+// ];
 
 export default function IncomePage() {
   const { t } = useTranslation();
@@ -41,6 +57,91 @@ export default function IncomePage() {
 
 //   const types = useIncomesStore((s) => s.types);
   const bankAccounts = useBankAccountsStore((s) => s.accounts) || [];
+
+  const columns: Column<Income>[] = [
+  {
+    key: 'title',
+    label: 'Title',
+  },
+
+  {
+    key: 'type',
+    label: 'Type',
+    sortable: true,
+  },
+
+  {
+    key: 'amount',
+    label: 'Amount',
+    render: (t) =>
+      `৳${t.amount?.toLocaleString() || '0'}`,
+  },
+
+  {
+    key: 'incomeDate',
+    label: 'Date',
+    sortable: true,
+  },
+
+  {
+    key: 'source',
+    label: 'Source',
+  },
+
+  {
+    key: 'referenceNo',
+    label: 'Reference No',
+  },
+
+  {
+    key: 'description',
+    label: 'Description',
+  },
+
+  {
+    key: 'note',
+    label: 'Note',
+  },
+
+  {
+    key: 'bankAccountId',
+
+    label: 'Bank Account',
+
+    render: (row) => {
+
+      const bank =
+        bankAccounts.find(
+          (b) =>
+            String(b.id) ===
+            String(row.bankAccountId)
+        );
+
+      return (
+        bank?.bankName ||
+        'Not Set'
+      );
+    },
+  },
+
+  // {
+  //   key: 'status',
+
+  //   label: 'Status',
+
+  //   render: (t) => (
+  //     <Badge
+  //       variant={
+  //         t.status === 'received'
+  //           ? 'default'
+  //           : 'secondary'
+  //       }
+  //     >
+  //       {t.status}
+  //     </Badge>
+  //   ),
+  // },
+];
 
   console.log('Bank Accounts in income:', bankAccounts);
 
@@ -116,7 +217,12 @@ s.loadAccounts
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-2xl font-heading font-bold">Expenses</h1><p className="text-muted-foreground">All expenses require approval before being recorded</p></div>
+        <div>
+          <h1 className="text-2xl font-heading font-bold">Incomes</h1>
+          {/* <p className="text-muted-foreground">
+            All expenses require approval before being recorded
+          </p> */}
+        </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <PermissionGuard permission="expense.create" message="You don't have permission to create ">
           <DialogTrigger asChild>
@@ -219,7 +325,11 @@ s.loadAccounts
           <TabsTrigger value="approved">Recorded ({incomes.length})</TabsTrigger>
         </TabsList>
         <TabsContent value="approved" className="mt-4">
-          <Card><CardContent className="pt-6"><DataTable data={incomes} columns={columns} searchKey="category" /></CardContent></Card>
+          <Card>
+            <CardContent className="pt-6">
+              <DataTable data={incomes} columns={columns} searchKey="category" />
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

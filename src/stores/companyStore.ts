@@ -54,11 +54,12 @@ export const useCompanyStore = create<CompanyState>((set, get) => ({
 
   try {
     const response = await apiClient.getCompanySettings();
+    console.log('Loaded company settings:', response);
 
     set((state) => ({
       company: {
         ...state.company, // keep existing founders
-        ...response.data, // overwrite only API fields
+        ...response.data?.data, // overwrite only API fields
       },
       isLoading: false,
     }));
@@ -78,6 +79,8 @@ export const useCompanyStore = create<CompanyState>((set, get) => ({
 
     try {
       const response = await apiClient.uploadCompanyLogo(formData);
+      console.log('logo upload response', response);
+
       const logoUrl = response.data.logoUrl;
 
       // Update local state
