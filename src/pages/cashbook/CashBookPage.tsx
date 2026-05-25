@@ -15,7 +15,7 @@ interface CashEntry {
 }
 
 const columns: Column<CashEntry>[] = [
-  { key: 'date', label: 'Date', sortable: true },
+  { key: 'date', label: 'Date', sortable: true, render: (row) => row.date ? new Date(row.date).toISOString().split('T')[0]:'Not Set' },
   { key: 'description', label: 'Description' },
   { key: 'cashIn', label: 'Cash In', render: (e) => e.cashIn > 0 ? <span className="text-success font-medium flex items-center gap-1"><ArrowUpRight className="h-3 w-3" /> ৳{(e.cashIn || 0).toLocaleString()}</span> : '-' },
   { key: 'cashOut', label: 'Cash Out', render: (e) => e.cashOut > 0 ? <span className="text-destructive font-medium flex items-center gap-1"><ArrowDownRight className="h-3 w-3" /> ৳{(e.cashOut || 0).toLocaleString()}</span> : '-' },

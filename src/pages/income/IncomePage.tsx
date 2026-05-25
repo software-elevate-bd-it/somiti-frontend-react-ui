@@ -19,36 +19,6 @@ import { PermissionGuard } from '@/components/shared/PermissionGuard';
 import { useIncomesStore } from '@/stores/incomeStore';
 import { useBankAccountsStore } from '@/stores/bankAccountsStore';
 
-
-// const columns: Column<Income>[] = [
-//   { key: 'title', label: 'Title' },
-//   { key: 'type', label: 'Type', sortable: true },
-//   { key: 'amount', label: 'Amount', render: (t) => `৳${t.amount ? t.amount.toLocaleString() : '0'}`, sortable: true },
-//   { key: 'date', label: 'incomeDate', sortable: true },
-//   { key: 'source', label: 'Source' },
-//   { key: 'referenceNo', label: 'Reference No' },
-//   { key: 'description', label: 'Description' },
-//   { key: 'note', label: 'Note' },
-//   { key: 'bankAccountId', 
-//     label: 'Bank Account',
-//    render: (row) => {
-
-//     const bank =
-//       bankAccounts.find(
-//         b =>
-//           String(b.id) ===
-//           String(row.bankAccountId)
-//       );
-
-//     return (
-//       bank?.bankName ||
-//       'Not Set'
-//     );
-
-//   } },
-//   { key: 'status', label: 'Status', render: (t) => <Badge variant={t.status === 'received' ? 'default' : t.status === 'pending' ? 'secondary' : 'destructive'}>{t.status || 'pending'}</Badge> },
-// ];
-
 export default function IncomePage() {
   const { t } = useTranslation();
   const incomes = useIncomesStore((s) => s.incomes) || [];
@@ -81,6 +51,7 @@ export default function IncomePage() {
     key: 'incomeDate',
     label: 'Date',
     sortable: true,
+    render: (row)=> row.incomeDate? new Date(row.incomeDate).toISOString().split('T')[0]:'Not Set'
   },
 
   {
@@ -124,23 +95,23 @@ export default function IncomePage() {
     },
   },
 
-  // {
-  //   key: 'status',
+  {
+    key: 'status',
 
-  //   label: 'Status',
+    label: 'Status',
 
-  //   render: (t) => (
-  //     <Badge
-  //       variant={
-  //         t.status === 'received'
-  //           ? 'default'
-  //           : 'secondary'
-  //       }
-  //     >
-  //       {t.status}
-  //     </Badge>
-  //   ),
-  // },
+    render: (t) => (
+      <Badge
+        variant={
+          t.status === 'received'
+            ? 'default'
+            : 'secondary'
+        }
+      >
+        {t.status}
+      </Badge>
+    ),
+  },
 ];
 
   console.log('Bank Accounts in income:', bankAccounts);

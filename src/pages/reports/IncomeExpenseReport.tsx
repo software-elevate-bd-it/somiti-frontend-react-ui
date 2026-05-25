@@ -101,17 +101,31 @@ export default function IncomeExpenseReport() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <Card><CardContent className="p-4 flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-green-500/10"><TrendingUp className="h-5 w-5 text-green-600" /></div>
-          <div><p className="text-xs text-muted-foreground">{t('reports.totalIncome')}</p><p className="text-xl font-heading font-bold">৳{totalIncome.toLocaleString()}</p></div>
-        </CardContent></Card>
-        <Card><CardContent className="p-4 flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-red-500/10"><TrendingDown className="h-5 w-5 text-red-600" /></div>
-          <div><p className="text-xs text-muted-foreground">{t('reports.totalExpense')}</p><p className="text-xl font-heading font-bold">৳{totalExpense.toLocaleString()}</p></div>
-        </CardContent></Card>
+        <Card>
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-green-500/10">
+              <TrendingUp className="h-5 w-5 text-green-600" />
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground">{t('reports.totalIncome')}</p>
+              <p className="text-xl font-heading font-bold">৳{totalIncome.toLocaleString()}</p>
+            </div>
+         </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-red-500/10">
+              <TrendingDown className="h-5 w-5 text-red-600" />
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground">{t('reports.totalExpense')}</p>
+              <p className="text-xl font-heading font-bold">৳{totalExpense.toLocaleString()}</p>
+            </div>
+         </CardContent>
+        </Card>
       </div>
 
-      <Card><CardContent className="pt-6">
+      {/* <Card><CardContent className="pt-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
           <div className="space-y-1"><Label className="text-xs">{t('dashboard.dateFrom')}</Label><Input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="h-8 text-xs" /></div>
           <div className="space-y-1"><Label className="text-xs">{t('dashboard.dateTo')}</Label><Input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="h-8 text-xs" /></div>
@@ -126,7 +140,7 @@ export default function IncomeExpenseReport() {
         ) : (
           <DataTable data={filtered} columns={columns} searchKey="memberName" pageSize={10} emptyMessage="No transactions found" />
         )}
-      </CardContent></Card>
+      </CardContent></Card> */}
     </div>
   );
 }
